@@ -16,7 +16,11 @@ So now to the payload. A simple `print('xxx')` returns xxx so far so good.
 But if we just try to: `print(open('/flag.txt').read())` we get:
 
 ```
-Files must be uploaded within 2 seconds. Scripts must run within 2 seconds. Only the first 4096 bytes will be considered.                                                                          Blacklist: (eval)|(import)|(open)|(with)|(as)|(from)|(lambda)|(\s*print\s*=\s*)|(?P<paren>\()                                                                                                      Whitelist: (\s*print\s*(?P<paren>\())                                                                                                                                                              ```
+Files must be uploaded within 2 seconds. Scripts must run within 2 seconds. Only the first 4096 bytes will be considered.
+Blacklist: (eval)|(import)|(open)|(with)|(as)|(from)|(lambda)|(\s*print\s*=\s*)|(?P<paren>\()
+Whitelist: (\s*print\s*(?P<paren>\())
+```
+
 
 So we know what is prohibited: `eval|import|open|with|as|from|lambda|print = |` and what is that?
 `(` open parentheses... ok thats "new"...
