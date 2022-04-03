@@ -20,7 +20,7 @@ break fgets
 c
 ```
 
-[return address is 0x6161616161616166](speed-return-address.png)
+![return address is 0x6161616161616166](speed-return-address.png)
 
 ```
 $ cyclic -n 8 -l 0x6161616161616166
@@ -28,12 +28,12 @@ $ cyclic -n 8 -l 0x6161616161616166
 ```
 
 
-[main address was 0x4010d0](main-address.png)
+![main address was 0x4010d0](main-address.png)
 
 
 Using pwndbg to see the GOT entries:
 
-[puts is in got](got-functions.png)
+![puts is in got](got-functions.png)
 
 
 ```python
@@ -89,4 +89,4 @@ c.interactive()
 ```
 
 
-[the flag was midnight{b3ee4fd1e8b331a237b234395d1ad0a0}](got-flag.png)
+![the flag was midnight{b3ee4fd1e8b331a237b234395d1ad0a0}](got-flag.png)
