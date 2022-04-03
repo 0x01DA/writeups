@@ -104,5 +104,6 @@ c.sendline(payload)
 c.interactive()
 ```
 
+As soon as we fire the exploit to the remote server we get a shell and can read out the flag using "cat flag":
 
 ![the flag was midnight{b3ee4fd1e8b331a237b234395d1ad0a0}](got-flag.png)
