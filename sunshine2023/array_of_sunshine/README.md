@@ -40,7 +40,7 @@ And we found some got.plt locations:
 
 ![printf got](img7.png)
 
-We can overwrite the printf@got.plt with any address in the memory. The next time printf is
+We can overwrite the printf@got.plt(index offset -12) with any address in the memory. The next time printf is
 executed, the programm will jump to our address instead. So we were looking for some useful
 functions and found the function "win":
 
