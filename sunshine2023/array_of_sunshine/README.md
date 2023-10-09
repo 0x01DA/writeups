@@ -1,6 +1,6 @@
 # Array of Sunshine
 
-The challenge is to exploit an index of bound write in a x64 binary.
+The challenge is to exploit an index out of bound write in a x64 binary.
 The program asks for two inputs. The first defines the index of the fruits-array
 and the second input writes into the memory of the specified index location:
 
