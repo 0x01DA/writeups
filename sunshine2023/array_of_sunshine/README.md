@@ -47,7 +47,7 @@ functions and found the function "win":
 ![win function](img8.png)
 
 The win() function executes system("cat flag.txt"). Thats exactly what we want to do. So lets
-put this into code:
+replace the print@got.plt-address with the address of the win-function:
 
 ```python
 from pwn import p64
